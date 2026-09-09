@@ -8,6 +8,7 @@ export interface DashboardHeaderProps {
   onLogout: () => void;
   onSwitchRole: (role: UserRole) => void;
   onOpenMobileMenu?: () => void;
+  onToggleMobileMenu?: () => void;
   hideBrandOnDesktop?: boolean;
 }
 
@@ -16,20 +17,23 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   onLogout,
   onSwitchRole,
   onOpenMobileMenu,
+  onToggleMobileMenu,
   hideBrandOnDesktop = false,
 }) => {
+  const handleToggle = onOpenMobileMenu || onToggleMobileMenu;
+
   return (
     <header className="bg-white border-b border-[var(--color-sand-200)] sticky top-0 z-30 shadow-xs">
       <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Left Side: Brand (or Mobile Hamburger if sidebar is present on desktop) */}
         <div className="flex items-center gap-3">
-          {onOpenMobileMenu && (
+          {handleToggle && (
             <button
-              onClick={onOpenMobileMenu}
+              onClick={handleToggle}
               className="p-2 -ml-2 rounded-lg text-[var(--color-sand-800)] hover:bg-[var(--color-sand-100)] md:hidden cursor-pointer"
               aria-label="Abrir menú lateral"
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-5 h-5 text-[var(--color-terracotta-600)]" />
             </button>
           )}
 
@@ -50,11 +54,11 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
                       : 'bg-[var(--color-terracotta-500)]'
                   }`}
                 >
-                  {user.role === 'ADMIN' ? 'Comisión' : 'Prestador'}
+                  {user.role === 'ADMIN' ? 'Comisión Municipal' : 'Panel Prestador'}
                 </span>
               </div>
               <p className="text-[11px] text-[var(--color-sand-400)] font-medium">
-                Pueblo Uritorco — Sistema Oficial
+                Pueblo Uritorco — Sistema de Gestión Oficial
               </p>
             </div>
           </div>

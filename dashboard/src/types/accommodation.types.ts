@@ -57,5 +57,5 @@ export interface CreateAccommodationDto {
   pricePerNight: number;
   maxGuests: number;
   amenities: string[];
-  images?: string[];
+  images?: string[] | AccommodationImage[];
 }
